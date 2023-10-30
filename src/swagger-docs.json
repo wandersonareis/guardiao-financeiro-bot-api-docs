@@ -1,0 +1,1033 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/bot-users/{botUserIdentity}/deposits": {
+            "post": {
+                "operationId": "DepositsController_createDeposit",
+                "summary": "",
+                "description": "Essa é a rota que será chamada quando o usuario quiser depositar valores em sua conta.",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateDepositDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "date": {
+                                            "type": "string"
+                                        },
+                                        "amount": {
+                                            "type": "number"
+                                        },
+                                        "owner_identity": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "3779d148-28f4-46cb-bbd9-89d00889587e",
+                                        "description": "Salário",
+                                        "date": "2023-10-29T23:29:20.817+00:00",
+                                        "amount": "1000",
+                                        "owner_identity": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Deposits"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "get": {
+                "operationId": "DepositsController_getDeposits",
+                "summary": "",
+                "description": "Essa é a rota que será chamada quando o usuario quiser consultar os depositos realizados na sua conta.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "date": {
+                                                "type": "string"
+                                            },
+                                            "amount": {
+                                                "type": "number"
+                                            },
+                                            "owner_identity": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Deposits"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{botUserIdentity}/deposits/{depositId}": {
+            "get": {
+                "operationId": "DepositsController_getDeposit",
+                "summary": "",
+                "description": "Essa é a rota que será chamada quando o usuario quiser consultar o deposito realizado na sua conta.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "date": {
+                                            "type": "string"
+                                        },
+                                        "amount": {
+                                            "type": "number"
+                                        },
+                                        "owner_identity": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "3779d148-28f4-46cb-bbd9-89d00889587e",
+                                        "description": "Salário",
+                                        "date": "2023-10-29T23:29:20.817+00:00",
+                                        "amount": "1000",
+                                        "owner_identity": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Deposits"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "operationId": "DepositsController_updateDeposit",
+                "summary": "",
+                "description": "Essa é a rota que será chamada quando o usuario quiser atualizar o saldo disponível na conta.",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateDepositDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Deposits"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "operationId": "DepositsController_removeDeposit",
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Deposits"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users": {
+            "post": {
+                "operationId": "BotUsersController_createBotUser",
+                "summary": "Essa é a rota que será utilizada para criar uma nova conta de usuário do bot.",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateBotUserAccountDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Email Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmailUniqueException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Contas de usuários do bot"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{userIdentity}": {
+            "get": {
+                "operationId": "BotUsersController_findOneBotUser",
+                "summary": "Essa é a rota que será utilizada para retornar os dados de uma conta de usuário do bot.",
+                "parameters": [
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "identity": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "name": "João Silva",
+                                        "email": "email@email.com",
+                                        "identity": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Contas de usuários do bot"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{userIdentity}/balance": {
+            "get": {
+                "operationId": "BotUsersController_getBalance",
+                "summary": "Esta rota retorna o balanço entre depósitos e transações do usuário.",
+                "parameters": [
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "📊 <b>Balanço do Mês</b> 📊\n\n💰 Total de Depósitos: R$ 1.155,00\n💸 Total de Transações: R$ 150,90\n🔔 Saldo Total: R$ 1.004,10"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Contas de usuários do bot"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{identity}": {
+            "patch": {
+                "operationId": "BotUsersController_update",
+                "summary": "Esta rota é usada para atualizar um usuário do bot",
+                "parameters": [
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateBotUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "identity": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "name": "João Silva",
+                                        "email": "email@email.com",
+                                        "identity": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Contas de usuários do bot"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{botUserIdentity}/transactions": {
+            "post": {
+                "operationId": "TransactionController_create",
+                "summary": "Essa é a rota que será utilizada para criar uma nova conta para um usuário do bot.",
+                "parameters": [
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTransactionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "transações"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "get": {
+                "operationId": "TransactionController_findAllTransactionByUserIdentity",
+                "summary": "Lista de contas por identificação de usuário",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "description": "Status da conta",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de contas retornada com sucesso"
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "transações"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{botUserIdentity}/transactions/action-list": {
+            "get": {
+                "operationId": "TransactionController_findAllTransactionToActionListByUserIdentity",
+                "summary": "Lista de contas para exclusão",
+                "parameters": [
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "transações"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{botUserIdentity}/transactions/{uuid}": {
+            "get": {
+                "operationId": "TransactionController_findOneTransaction",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "description": "id da transação",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "transações"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "operationId": "TransactionController_update",
+                "summary": "Esta rota atualiza uma transação de um usuário do bot",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "description": "id da transação",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTransactionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "transações"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "operationId": "TransactionController_remove",
+                "summary": "Esta rota remove uma transação de um usuário do bot",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "description": "id da transação",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "transações"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Guardião Financeiro",
+        "description": "Uma api para um chat-bot na plataforma blip,",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "query",
+                "name": "api_key"
+            }
+        },
+        "schemas": {
+            "CreateDepositDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Descrição do depósito",
+                        "example": "Salário"
+                    },
+                    "date": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Data do depósito",
+                        "example": "2023-10-29T23:29:20.817+00:00"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Valor do depósito",
+                        "example": 1000
+                    }
+                },
+                "required": [
+                    "description",
+                    "date",
+                    "amount"
+                ]
+            },
+            "UnauthorizedException": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number",
+                        "example": 401
+                    },
+                    "success": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Para acessar este recurso uma api_key deve ser enviada"
+                    },
+                    "error": {
+                        "type": "string",
+                        "example": "Unauthorized"
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "success",
+                    "message",
+                    "error"
+                ]
+            },
+            "UpdateDepositDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Descrição do depósito",
+                        "example": "Salário"
+                    },
+                    "date": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Data do depósito",
+                        "example": "2023-10-29T23:29:20.817+00:00"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Valor do depósito",
+                        "example": 1000
+                    }
+                }
+            },
+            "CreateBotUserAccountDto": {
+                "type": "object",
+                "properties": {
+                    "userName": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 60,
+                        "pattern": "/^[\\p{L} ]+$/u",
+                        "description": "Usename do usuário.",
+                        "example": "João Silva"
+                    },
+                    "userIdentity": {
+                        "type": "string",
+                        "description": "UseIdentify do usuário.",
+                        "example": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "E-mail do usuário.",
+                        "example": "email@email.com"
+                    }
+                },
+                "required": [
+                    "userName",
+                    "userIdentity",
+                    "email"
+                ]
+            },
+            "EmailUniqueException": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number",
+                        "example": 409
+                    },
+                    "success": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "error": {
+                        "type": "object",
+                        "example": {
+                            "email": "Já existe conta cadastrada com o e-mail informado."
+                        }
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "success",
+                    "message",
+                    "error"
+                ]
+            },
+            "UpdateBotUserDto": {
+                "type": "object",
+                "properties": {
+                    "userName": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 60,
+                        "pattern": "/^[\\p{L} ]+$/u",
+                        "description": "Usename do usuário.",
+                        "example": "João Silva"
+                    },
+                    "userIdentity": {
+                        "type": "string",
+                        "description": "UseIdentify do usuário.",
+                        "example": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "E-mail do usuário.",
+                        "example": "email@email.com"
+                    }
+                }
+            },
+            "CreateTransactionDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Descrição da cobrança"
+                    },
+                    "date": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Data de vencimento da fatura"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "minimum": 1,
+                        "maximum": 99999999,
+                        "description": "Valor da fatura em centavos"
+                    },
+                    "is_payed": {
+                        "type": "boolean",
+                        "description": "Fatura paga?"
+                    }
+                },
+                "required": [
+                    "description",
+                    "date",
+                    "amount",
+                    "is_payed"
+                ]
+            },
+            "UpdateTransactionDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Descrição da cobrança"
+                    },
+                    "date": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Data de vencimento da fatura"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "minimum": 1,
+                        "maximum": 99999999,
+                        "description": "Valor da fatura em centavos"
+                    },
+                    "is_payed": {
+                        "type": "boolean",
+                        "description": "Fatura paga?"
+                    }
+                }
+            }
+        }
+    }
+}
