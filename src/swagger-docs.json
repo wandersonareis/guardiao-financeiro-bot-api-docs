@@ -1,12 +1,22 @@
 {
     "openapi": "3.0.0",
     "paths": {
-        "/bot-users/{botUserIdentity}/deposits": {
+        "/bot-users/{userIdentity}/deposits": {
             "post": {
                 "operationId": "DepositsController_createDeposit",
                 "summary": "",
                 "description": "Essa é a rota que será chamada quando o usuario quiser depositar valores em sua conta.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -76,7 +86,37 @@
                 "operationId": "DepositsController_getDeposits",
                 "summary": "",
                 "description": "Essa é a rota que será chamada quando o usuario quiser consultar os depositos realizados na sua conta.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "skip",
+                        "required": false,
+                        "in": "query",
+                        "description": "Pular os depósitos",
+                        "example": 0,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "take",
+                        "required": false,
+                        "in": "query",
+                        "description": "Tamanho da lista de depósitos",
+                        "example": 9,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -129,12 +169,118 @@
                 ]
             }
         },
-        "/bot-users/{botUserIdentity}/deposits/{depositId}": {
+        "/bot-users/{userIdentity}/deposits/action-list": {
+            "get": {
+                "operationId": "DepositsController_getDepositsAsMenu",
+                "summary": "Esta rota retorna os depósitos de um usuário como um BLiP menu",
+                "parameters": [
+                    {
+                        "name": "skip",
+                        "required": false,
+                        "in": "query",
+                        "description": "Pular os depósitos",
+                        "example": 0,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "take",
+                        "required": false,
+                        "in": "query",
+                        "description": "Tamanho da lista de depósitos",
+                        "example": 9,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "date": {
+                                                "type": "string"
+                                            },
+                                            "amount": {
+                                                "type": "number"
+                                            },
+                                            "owner_identity": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "api_key missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Deposits"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bot-users/{userIdentity}/deposits/{depositId}": {
             "get": {
                 "operationId": "DepositsController_getDeposit",
                 "summary": "",
                 "description": "Essa é a rota que será chamada quando o usuario quiser consultar o deposito realizado na sua conta.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "depositId",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do depósito",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -194,7 +340,26 @@
                 "operationId": "DepositsController_updateDeposit",
                 "summary": "",
                 "description": "Essa é a rota que será chamada quando o usuario quiser atualizar o saldo disponível na conta.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "depositId",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do depósito",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -206,12 +371,12 @@
                     }
                 },
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "type": "string"
                                 }
                             }
                         }
@@ -228,14 +393,35 @@
             },
             "delete": {
                 "operationId": "DepositsController_removeDeposit",
-                "parameters": [],
+                "summary": "",
+                "description": "Essa é a rota que será chamada quando o usuario quiser remover o deposito realizado na sua conta.",
+                "parameters": [
+                    {
+                        "name": "depositId",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do depósito",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userIdentity",
+                        "required": true,
+                        "in": "path",
+                        "description": "id do usuário do bot",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "type": "string"
                                 }
                             }
                         }
@@ -409,6 +595,27 @@
                 ]
             }
         },
+        "/bot-users/{userIdentity}/summary": {
+            "get": {
+                "operationId": "BotUsersController_getSummary",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Contas de usuários do bot"
+                ]
+            }
+        },
         "/bot-users/{identity}": {
             "patch": {
                 "operationId": "BotUsersController_update",
@@ -482,7 +689,7 @@
                 ]
             }
         },
-        "/bot-users/{botUserIdentity}/transactions": {
+        "/bot-users/{userIdentity}/transactions": {
             "post": {
                 "operationId": "TransactionController_create",
                 "summary": "Essa é a rota que será utilizada para criar uma nova conta para um usuário do bot.",
@@ -552,6 +759,22 @@
                         }
                     },
                     {
+                        "name": "skip",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "take",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
                         "name": "userIdentity",
                         "required": true,
                         "in": "path",
@@ -586,11 +809,31 @@
                 ]
             }
         },
-        "/bot-users/{botUserIdentity}/transactions/action-list": {
+        "/bot-users/{userIdentity}/transactions/action-list": {
             "get": {
                 "operationId": "TransactionController_findAllTransactionToActionListByUserIdentity",
-                "summary": "Lista de contas para exclusão",
+                "summary": "Lista as transações como um menu em formato BLiP",
                 "parameters": [
+                    {
+                        "name": "skip",
+                        "required": false,
+                        "in": "query",
+                        "description": "Quantidade de registros a pular",
+                        "example": 0,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "take",
+                        "required": false,
+                        "in": "query",
+                        "description": "Quantidade de registros a retornar",
+                        "example": 9,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
                     {
                         "name": "userIdentity",
                         "required": true,
@@ -636,7 +879,7 @@
                 ]
             }
         },
-        "/bot-users/{botUserIdentity}/transactions/{uuid}": {
+        "/bot-users/{userIdentity}/transactions/{uuid}": {
             "get": {
                 "operationId": "TransactionController_findOneTransaction",
                 "parameters": [
@@ -678,6 +921,9 @@
                     "transações"
                 ],
                 "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
                     {
                         "ApiKeyAuth": []
                     }
@@ -810,7 +1056,11 @@
         "contact": {}
     },
     "tags": [],
-    "servers": [],
+    "servers": [
+        {
+            "url": "https://guardiao-financeiro-bot-api-docs.onrender.com"
+        }
+    ],
     "components": {
         "securitySchemes": {
             "ApiKeyAuth": {
@@ -836,6 +1086,7 @@
                     },
                     "amount": {
                         "type": "number",
+                        "minimum": 1,
                         "description": "Valor do depósito",
                         "example": 1000
                     }
@@ -889,6 +1140,7 @@
                     },
                     "amount": {
                         "type": "number",
+                        "minimum": 1,
                         "description": "Valor do depósito",
                         "example": 1000
                     }
@@ -897,7 +1149,7 @@
             "CreateBotUserAccountDto": {
                 "type": "object",
                 "properties": {
-                    "userName": {
+                    "name": {
                         "type": "string",
                         "minLength": 3,
                         "maxLength": 60,
@@ -905,7 +1157,7 @@
                         "description": "Usename do usuário.",
                         "example": "João Silva"
                     },
-                    "userIdentity": {
+                    "identity": {
                         "type": "string",
                         "description": "UseIdentify do usuário.",
                         "example": "string"
@@ -917,8 +1169,8 @@
                     }
                 },
                 "required": [
-                    "userName",
-                    "userIdentity",
+                    "name",
+                    "identity",
                     "email"
                 ]
             },
@@ -954,7 +1206,7 @@
             "UpdateBotUserDto": {
                 "type": "object",
                 "properties": {
-                    "userName": {
+                    "name": {
                         "type": "string",
                         "minLength": 3,
                         "maxLength": 60,
@@ -962,7 +1214,7 @@
                         "description": "Usename do usuário.",
                         "example": "João Silva"
                     },
-                    "userIdentity": {
+                    "identity": {
                         "type": "string",
                         "description": "UseIdentify do usuário.",
                         "example": "string"
